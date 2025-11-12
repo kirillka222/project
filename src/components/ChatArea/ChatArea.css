@@ -1,0 +1,118 @@
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  height: 100vh;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
+
+.welcome-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 40px;
+  max-width: 100%;
+}
+
+.center-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 30px;
+}
+
+.welcome-title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1F3A8A;
+}
+
+.welcome-subtitle {
+  font-size: 16px;
+  color: #717182;
+  margin-bottom: 40px;
+  text-align: center;
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+.input-container {
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+}
+
+.message-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: #f8f9fa;
+  padding-right: 50px;
+  transition: all 0.3s ease;
+}
+
+.message-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.send-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.send-button:hover {
+  color: #0056b3;
+}
+
+/* Темная тема для области чата */
+.chat-area.dark-theme {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.chat-area.dark-theme .welcome-title {
+  color: #ffffff;
+}
+
+.chat-area.dark-theme .welcome-subtitle {
+  color: #bbb;
+}
+
+.chat-area.dark-theme .message-input {
+  background-color: #333;
+  border-color: #444;
+  color: #ffffff;
+}
+
+.chat-area.dark-theme .message-input::placeholder {
+  color: #888;
+}
+
+.chat-area.dark-theme .message-input:focus {
+  border-color: #4F8EF7;
+}
+
+.chat-area.dark-theme .send-button {
+  color: #4F8EF7;
+}
+
+.chat-area.dark-theme .send-button:hover {
+  color: #3a7be0;
+}

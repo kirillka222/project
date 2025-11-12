@@ -1,0 +1,21 @@
+.app {
+  display: flex;
+  height: 100vh;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+/* Темная тема */
+.app.dark-theme {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.app.dark-theme .sidebar {
+  background-color: #2d2d2d;
+  border-right-color: #444;
+}
+
+.app.dark-theme .chat-area {
+  background-color: #1a1a1a;
+}
