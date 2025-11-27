@@ -9,6 +9,7 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null); // Добавляем ref для input
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -21,6 +22,10 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
   useEffect(() => {
     if (currentChat) {
       loadChatHistory();
+      // Фокусируемся на поле ввода при смене чата
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
     } else {
       setMessages([]);
     }
@@ -79,7 +84,6 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
       console.error('Ошибка отправки сообщения:', err);
       setError(err.message);
       
-      // Показываем сообщение об ошибке
       const errorMessage = {
         id: Date.now() + 1,
         type: 'error',
@@ -89,6 +93,10 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
+      // Фокусируемся обратно на поле ввода после отправки
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
     }
   };
 
@@ -103,8 +111,7 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
     setMessage(`Помогите с: ${action}`);
     // Фокусируемся на поле ввода после выбора действия
     setTimeout(() => {
-      const input = document.querySelector('.message-input');
-      input?.focus();
+      inputRef.current?.focus();
     }, 100);
   };
 
@@ -200,6 +207,7 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
       {/* Поле ввода ВСЕГДА отображается когда есть currentChat */}
       <div className="input-container">
         <input 
+          ref={inputRef} // Добавляем ref
           type="text" 
           className="message-input" 
           placeholder="Введите запрос..."
@@ -207,7 +215,6 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={handleKeyPress}
           disabled={isLoading}
-          autoFocus // Автофокус на поле ввода
         />
         <button 
           className={`send-button ${isLoading ? 'loading' : ''}`}
