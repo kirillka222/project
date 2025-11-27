@@ -12,7 +12,7 @@ const Sidebar = ({ isDarkTheme, onThemeToggle, onChatSelect, currentChatId }) =>
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Загрузка чатов при монтировании компонента
+
   useEffect(() => {
     loadChats();
   }, []);
@@ -26,7 +26,7 @@ const Sidebar = ({ isDarkTheme, onThemeToggle, onChatSelect, currentChatId }) =>
         throw new Error('Токен не найден');
       }
 
-      const response = await fetch('/api/chats/', {
+      const response = await fetch('http://backend:8000/api/chats/', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -36,9 +36,8 @@ const Sidebar = ({ isDarkTheme, onThemeToggle, onChatSelect, currentChatId }) =>
 
       if (!response.ok) {
         if (response.status === 401) {
-          // Попытка обновить токен
           await refreshToken();
-          return loadChats(); // Повторяем запрос после обновления токена
+          return loadChats();
         }
         throw new Error('Ошибка загрузки чатов');
       }
@@ -61,7 +60,7 @@ const Sidebar = ({ isDarkTheme, onThemeToggle, onChatSelect, currentChatId }) =>
         throw new Error('Refresh token не найден');
       }
 
-      const response = await fetch('/api/refresh', {
+      const response = await fetch('http://backend:8000/api/refresh', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +80,6 @@ const Sidebar = ({ isDarkTheme, onThemeToggle, onChatSelect, currentChatId }) =>
       
     } catch (err) {
       console.error('Ошибка обновления токена:', err);
-      // Перенаправление на страницу входа
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       window.location.reload();
@@ -92,7 +90,7 @@ const Sidebar = ({ isDarkTheme, onThemeToggle, onChatSelect, currentChatId }) =>
     try {
       const token = localStorage.getItem('access_token');
       
-      const response = await fetch('/api/chats/', {
+      const response = await fetch('http://backend:8000/api/chats/', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -109,10 +107,8 @@ const Sidebar = ({ isDarkTheme, onThemeToggle, onChatSelect, currentChatId }) =>
 
       const newChat = await response.json();
       
-      // Обновляем список чатов
       setChats(prevChats => [newChat, ...prevChats]);
       
-      // Выбираем новый чат
       if (onChatSelect) {
         onChatSelect(newChat);
       }

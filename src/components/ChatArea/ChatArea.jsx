@@ -18,7 +18,6 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
     scrollToBottom();
   }, [messages]);
 
-  // Загрузка истории сообщений при смене чата
   useEffect(() => {
     if (currentChat) {
       loadChatHistory();
@@ -28,8 +27,6 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
   }, [currentChat]);
 
   const loadChatHistory = async () => {
-    // TODO: Добавить эндпоинт для загрузки истории сообщений чата
-    // Пока используем пустую историю
     setMessages([]);
   };
 
@@ -51,7 +48,7 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
     try {
       const token = localStorage.getItem('access_token');
       
-      const response = await fetch(`/api/chat/${currentChat.id}`, {
+      const response = await fetch(`http://backend:8000/api/chat/${currentChat.id}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -113,7 +110,6 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
     });
   };
 
-  // Если чат не выбран, показываем приветственный экран
   if (!currentChat) {
     return (
       <div className={`chat-area ${isDarkTheme ? 'dark-theme' : ''}`}>

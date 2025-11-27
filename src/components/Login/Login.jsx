@@ -17,7 +17,7 @@ const Login = ({ onLogin, onSwitchToRegister }) => {
 
     try {
       // Отправка запроса на получение токена
-      const response = await fetch('/api/auth/token/', {
+      const response = await fetch('http://backend:8000/api/auth/token/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

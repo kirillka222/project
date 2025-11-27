@@ -38,7 +38,7 @@ const Register = ({ onRegister, onSwitchToLogin }) => {
 
     try {
       // Отправка запроса на регистрацию
-      const response = await fetch('/api/users/', {
+      const response = await fetch('http://backend:8000/api/users/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const Register = ({ onRegister, onSwitchToLogin }) => {
       console.log('Успешная регистрация:', userData);
 
       // Автоматический вход после успешной регистрации
-      const tokenResponse = await fetch('/api/auth/token/', {
+      const tokenResponse = await fetch('http://backend:8000/api/auth/token/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
