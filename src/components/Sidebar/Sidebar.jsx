@@ -26,7 +26,7 @@ const Sidebar = ({ isDarkTheme, onThemeToggle, onChatSelect, currentChatId }) =>
         throw new Error('Токен не найден');
       }
 
-      const response = await fetch('http://backend:8000/api/chats/', {
+      const response = await fetch('http://localhost:8000/api/chats/', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -60,7 +60,7 @@ const Sidebar = ({ isDarkTheme, onThemeToggle, onChatSelect, currentChatId }) =>
         throw new Error('Refresh token не найден');
       }
 
-      const response = await fetch('http://backend:8000/api/refresh', {
+      const response = await fetch('http://localhost:8000/api/refresh', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const Sidebar = ({ isDarkTheme, onThemeToggle, onChatSelect, currentChatId }) =>
     try {
       const token = localStorage.getItem('access_token');
       
-      const response = await fetch('http://backend:8000/api/chats/', {
+      const response = await fetch('http://localhost:8000/api/chats/', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
