@@ -101,6 +101,11 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
 
   const handleActionSelect = (action) => {
     setMessage(`Помогите с: ${action}`);
+    // Фокусируемся на поле ввода после выбора действия
+    setTimeout(() => {
+      const input = document.querySelector('.message-input');
+      input?.focus();
+    }, 100);
   };
 
   const formatTime = (timestamp) => {
@@ -192,6 +197,7 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
         </div>
       )}
 
+      {/* Поле ввода ВСЕГДА отображается когда есть currentChat */}
       <div className="input-container">
         <input 
           type="text" 
@@ -201,6 +207,7 @@ const ChatArea = ({ isDarkTheme, currentChat }) => {
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={handleKeyPress}
           disabled={isLoading}
+          autoFocus // Автофокус на поле ввода
         />
         <button 
           className={`send-button ${isLoading ? 'loading' : ''}`}
