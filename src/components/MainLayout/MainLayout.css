@@ -1,0 +1,19 @@
+/* stellarum_ai_frontend/src/components/MainLayout/MainLayout.css */
+.main-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Темная тема */
+.main-layout.dark-theme {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .main-layout {
+    flex-direction: column;
+  }
+}

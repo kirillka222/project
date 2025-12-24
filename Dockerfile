@@ -2,22 +2,25 @@
 FROM node:20-alpine as build
 
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-RUN npm ci
+
+# 1. Копируем файлы зависимостей
+COPY package.json package-lock.json ./
+
+# 2. Устанавливаем с legacy-peer-deps для React 19
+RUN npm ci --legacy-peer-deps
+
+# 3. Копируем остальной код
 COPY . .
+
+# 4. Собираем приложение
 RUN npm run build
 
 # Этап 2 — сервер nginx
 FROM nginx:alpine
 
-# Удаляем дефолтные файлы nginx и копируем билд
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /app/build /usr/share/nginx/html
-
-# Копируем конфиг nginx (необязательно)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
